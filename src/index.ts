@@ -8,22 +8,22 @@ const client = new Gree.Client({host: AIR_CONDITION_IP });
 let ready = false; // // Only run once
 
 const MAX_PROGRAM_RUN_TIME_MS = 10_000;
-const PRICE_THRESHOLD = 22;
+const PRICE_THRESHOLD = 15;
 const DAYTIME_TEMPERATURE = 22;
 const NIGHTTIME_TEMPERATURE = 19;
 
 const shutdownOrKeepOff = async (currentProperties: GreeProperties): Promise<void> => {
-  const properties = { ...currentProperties } satisfies GreeProperties;
+  const properties = {};
   if (currentProperties.power === 'on') {
     properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
     properties[Gree.PROPERTY.power] = Gree.VALUE.lights.off;
     console.log(properties);
   }
-  hasChanged(currentProperties, properties) && await client.setProperties(properties);
+  await client.setProperties(properties);
 };
 
 const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Promise<void> => {
-  const properties = { ...currentProperties } satisfies GreeProperties;
+  const properties = {};
   const nightTime = isNightTime(date);
   if (currentProperties.power === 'off') {
     properties[Gree.PROPERTY.power] = Gree.VALUE.power.on;
@@ -37,7 +37,7 @@ const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Prom
     properties[Gree.PROPERTY.fanSpeed] = fanSpeed;
   }
   console.log(properties);
-  hasChanged(currentProperties, properties) && await client.setProperties(properties);
+  await client.setProperties(properties);
 };
 
 client.on('connect', async (client: any) => {
