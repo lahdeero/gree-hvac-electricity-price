@@ -1,6 +1,6 @@
 import * as Gree from 'gree-hvac-client';
 import { getLatestPrice } from './prices';
-import { isChangeHour, isNightTime } from '../utils';
+import { isChangeHour, isNightTime } from '../helpers';
 import { FanSpeed, GreeProperties } from './types/types';
 
 const AIR_CONDITION_IP = '192.168.1.111';
@@ -33,12 +33,10 @@ const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Prom
     properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
     properties[Gree.PROPERTY.mode] = Gree.VALUE.mode.cool;
   }
-  if (isChangeHour(date)) {
-    const temperature = nightTime ? NIGHTTIME_TEMPERATURE : DAYTIME_TEMPERATURE;
-    const fanSpeed = nightTime ? FanSpeed.MEDIUMLOW : FanSpeed.LOW;
-    properties[Gree.PROPERTY.temperature] = temperature;
-    properties[Gree.PROPERTY.fanSpeed] = fanSpeed;
-  }
+  const temperature = nightTime ? NIGHTTIME_TEMPERATURE : DAYTIME_TEMPERATURE;
+  const fanSpeed = nightTime ? FanSpeed.MEDIUMLOW : FanSpeed.LOW;
+  properties[Gree.PROPERTY.temperature] = temperature;
+  properties[Gree.PROPERTY.fanSpeed] = fanSpeed;
   console.log(properties);
   await client.setProperties(properties);
 };

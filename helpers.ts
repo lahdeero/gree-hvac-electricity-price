@@ -1,5 +1,3 @@
-import * as R from 'remeda';
-
 const NIGHT_CHANGE_HOUR_WEEEKEND = 1;
 const NIGHT_CHANGE_HOUR_WEEK = 0;
 const DAY_CHANGE_HOUR_WEEEKEND = 10;
@@ -24,9 +22,4 @@ export const isChangeHour = (date: Date) => {
     return [DAY_CHANGE_HOUR_WEEEKEND, NIGHT_CHANGE_HOUR_WEEEKEND].includes(hour);
   }
   return [DAY_CHANGE_HOUR_WEEK, NIGHT_CHANGE_HOUR_WEEK].includes(hour);
-};
-
-// Maybe remeda and this is not needed since cant change current values
-export const hasChanged = <T> (data: T, compare: T): boolean =>  {
-  return !R.isDeepEqual(data, compare);
 };

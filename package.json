@@ -11,8 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.2",
-    "gree-hvac-client": "^2.0.0",
-    "remeda": "^2.0.4"
+    "gree-hvac-client": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.1",
