@@ -23,12 +23,13 @@ const shutdownOrKeepOff = async (currentProperties: GreeProperties): Promise<voi
 };
 
 const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Promise<void> => {
+  if (!isChangeHour(date)) {
+    return;
+  }
+
   const properties = {};
   const nightTime = isNightTime(date);
   if (currentProperties.power === 'off') {
-    if (!isChangeHour(date)) {
-      return;
-    }
     properties[Gree.PROPERTY.power] = Gree.VALUE.power.on;
     properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
     properties[Gree.PROPERTY.mode] = Gree.VALUE.mode.cool;
