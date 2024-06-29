@@ -14,11 +14,12 @@ const NIGHTTIME_TEMPERATURE = 19;
 
 const shutdownOrKeepOff = async (currentProperties: GreeProperties): Promise<void> => {
   const properties = {};
-  if (currentProperties.power === 'on') {
-    properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
-    properties[Gree.PROPERTY.power] = Gree.VALUE.lights.off;
-    console.log(properties);
+  if (currentProperties.power === Gree.VALUE.power.off) {
+    return;
   }
+  properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
+  properties[Gree.PROPERTY.power] = Gree.VALUE.lights.off;
+  console.log(properties);
   await client.setProperties(properties);
 };
 
@@ -29,7 +30,7 @@ const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Prom
 
   const properties = {};
   const nightTime = isNightTime(date);
-  if (currentProperties.power === 'off') {
+  if (currentProperties.power === Gree.VALUE.power.off) {
     properties[Gree.PROPERTY.power] = Gree.VALUE.power.on;
     properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
     properties[Gree.PROPERTY.mode] = Gree.VALUE.mode.cool;
@@ -38,6 +39,7 @@ const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Prom
   const fanSpeed = nightTime ? FanSpeed.MEDIUMLOW : FanSpeed.LOW;
   properties[Gree.PROPERTY.temperature] = temperature;
   properties[Gree.PROPERTY.fanSpeed] = fanSpeed;
+  properties[Gree.PROPERTY.blow] = Gree.VALUE.blow.auto;
   console.log(properties);
   await client.setProperties(properties);
 };
