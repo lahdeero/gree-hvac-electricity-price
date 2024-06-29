@@ -13,10 +13,11 @@ const DAYTIME_TEMPERATURE = 22;
 const NIGHTTIME_TEMPERATURE = 19;
 
 const shutdownOrKeepOff = async (currentProperties: GreeProperties): Promise<void> => {
-  const properties = {};
   if (currentProperties.power === Gree.VALUE.power.off) {
     return;
   }
+
+  const properties = {};
   properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
   properties[Gree.PROPERTY.power] = Gree.VALUE.lights.off;
   console.log(properties);
