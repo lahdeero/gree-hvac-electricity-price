@@ -38,9 +38,11 @@ const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Prom
   }
   const temperature = nightTime ? NIGHTTIME_TEMPERATURE : DAYTIME_TEMPERATURE;
   const fanSpeed = nightTime ? FanSpeed.MEDIUMLOW : FanSpeed.LOW;
+  const swingVert = nightTime ?  Gree.VALUE.swingVert.fixedBottom : Gree.VALUE.swingVert.fixedMidTop;
+  properties[Gree.PROPERTY.swingVert] = swingVert;
   properties[Gree.PROPERTY.temperature] = temperature;
   properties[Gree.PROPERTY.fanSpeed] = fanSpeed;
-  properties[Gree.PROPERTY.blow] = Gree.VALUE.blow.auto;
+  properties[Gree.PROPERTY.blow] = Gree.VALUE.blow.on;
   console.log(properties);
   await client.setProperties(properties);
 };
