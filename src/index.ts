@@ -14,20 +14,24 @@ const NIGHTTIME_TEMPERATURE = 19;
 
 const shutdownOrKeepOff = async (currentProperties: GreeProperties): Promise<void> => {
   if (currentProperties.power === Gree.VALUE.power.off) {
+    console.info("not change hour, no shutdown needed");
     return;
   }
+  console.info("change hour, shutdown or keep off");
 
   const properties = {};
   properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
   properties[Gree.PROPERTY.power] = Gree.VALUE.lights.off;
-  console.log(properties);
+  console.info(properties);
   await client.setProperties(properties);
 };
 
 const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Promise<void> => {
   if (!isChangeHour(date)) {
+    console.info("not change hour, no turn on needed");
     return;
   }
+  console.info("change hour, turn on or keep on");
 
   const properties = {};
   const nightTime = isNightTime(date);
@@ -43,12 +47,12 @@ const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Prom
   properties[Gree.PROPERTY.temperature] = temperature;
   properties[Gree.PROPERTY.fanSpeed] = fanSpeed;
   properties[Gree.PROPERTY.blow] = Gree.VALUE.blow.on;
-  console.log(properties);
+  console.info(properties);
   await client.setProperties(properties);
 };
 
 client.on('connect', async (client: any) => {
-  console.log('connected to', client.getDeviceId());
+  console.info('connected to', client.getDeviceId());
 });
 
 client.on('update', async (updatedProperties: GreeProperties, _properties: GreeProperties) => {
@@ -56,16 +60,16 @@ client.on('update', async (updatedProperties: GreeProperties, _properties: GreeP
     return;
   }
   ready = true;
-  console.log("update");
+  console.info("update");
   const date = new Date();
-  console.log("date", date.toString());
+  console.info("date", date.toString());
   const latestPrice = await getLatestPrice(date);
-  console.log("latestPrice", latestPrice);
+  console.info("latestPrice", latestPrice);
   if (latestPrice > PRICE_THRESHOLD) {
-    console.log("shutdownOrKeepOff");
+    console.info("shutdownOrKeepOff");
     await shutdownOrKeepOff(updatedProperties);
   } else if (latestPrice <= PRICE_THRESHOLD) {
-    console.log("turnOrKeepOn");
+    console.info("turnOrKeepOn");
     await turnOrKeepOn(updatedProperties, date);
   }
 });
@@ -75,6 +79,6 @@ client.on('error', (error: any) => {
 });
 
 setTimeout(() => {
-  console.log("exiting...");
+  console.info("exiting...");
   process.exit(0);
 }, MAX_PROGRAM_RUN_TIME_MS);
