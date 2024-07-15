@@ -9,8 +9,8 @@ let ready = false; // // Only run once
 
 const MAX_PROGRAM_RUN_TIME_MS = 10_000;
 const PRICE_THRESHOLD = 15;
-const DAYTIME_TEMPERATURE = 22;
-const NIGHTTIME_TEMPERATURE = 19;
+// const DAYTIME_TEMPERATURE = 22;
+// const NIGHTTIME_TEMPERATURE = 19;
 
 const shutdownOrKeepOff = async (currentProperties: GreeProperties): Promise<void> => {
   if (currentProperties.power === Gree.VALUE.power.off) {
@@ -21,7 +21,7 @@ const shutdownOrKeepOff = async (currentProperties: GreeProperties): Promise<voi
 
   const properties = {};
   properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
-  properties[Gree.PROPERTY.power] = Gree.VALUE.lights.off;
+  properties[Gree.PROPERTY.power] = Gree.VALUE.power.off;
   console.info(properties);
   await client.setProperties(properties);
 };
@@ -40,12 +40,12 @@ const turnOrKeepOn = async (currentProperties: GreeProperties, date: Date): Prom
     properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
     properties[Gree.PROPERTY.mode] = Gree.VALUE.mode.cool;
   }
-  const temperature = nightTime ? NIGHTTIME_TEMPERATURE : DAYTIME_TEMPERATURE;
-  const fanSpeed = nightTime ? FanSpeed.MEDIUMLOW : FanSpeed.LOW;
+  // const temperature = nightTime ? NIGHTTIME_TEMPERATURE : DAYTIME_TEMPERATURE;
+  // const fanSpeed = nightTime ? FanSpeed.MEDIUMLOW : FanSpeed.LOW;
   // const swingVert = nightTime ?  Gree.VALUE.swingVert.fixedBottom : Gree.VALUE.swingVert.fixedMidTop;
   // properties[Gree.PROPERTY.swingVert] = swingVert;
-  properties[Gree.PROPERTY.temperature] = temperature;
-  properties[Gree.PROPERTY.fanSpeed] = fanSpeed;
+  // properties[Gree.PROPERTY.temperature] = temperature;
+  // properties[Gree.PROPERTY.fanSpeed] = fanSpeed;
   properties[Gree.PROPERTY.blow] = Gree.VALUE.blow.on;
   console.info(properties);
   await client.setProperties(properties);
