@@ -1,5 +1,5 @@
-const NIGHT_CHANGE_HOUR_WEEEKEND = 1;
-const NIGHT_CHANGE_HOUR_WEEK = 0;
+const NIGHT_CHANGE_HOUR_WEEEKEND = 2;
+const NIGHT_CHANGE_HOUR_WEEK = 1;
 const DAY_CHANGE_HOUR_WEEEKEND = 10;
 const DAY_CHANGE_HOUR_WEEK = 8;
 
@@ -19,7 +19,9 @@ export const isNightTime = (date: Date): boolean => {
 export const isChangeHour = (date: Date) => {
   const hour = date.getHours();
   if (isWeekend(date)) {
-    return [DAY_CHANGE_HOUR_WEEEKEND, NIGHT_CHANGE_HOUR_WEEEKEND].includes(hour);
+    return [DAY_CHANGE_HOUR_WEEEKEND, NIGHT_CHANGE_HOUR_WEEEKEND].includes(
+      hour
+    );
   }
   return [DAY_CHANGE_HOUR_WEEK, NIGHT_CHANGE_HOUR_WEEK].includes(hour);
 };
