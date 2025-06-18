@@ -37,19 +37,23 @@ const turnOrKeepOn = async (
     return;
   }
   console.info("change hour, turn on or keep on");
+  // If the air conditioner is already on, we don't need to do anything
+  if (currentProperties.power === Gree.VALUE.power.on) {
+    console.info("air conditioner is already on, no action needed");
+    return;
+  }
 
   const properties = {};
   const nightTime = isNightTime(date);
-  if (currentProperties.power === Gree.VALUE.power.off) {
-    properties[Gree.PROPERTY.power] = Gree.VALUE.power.on;
-    properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
-    properties[Gree.PROPERTY.mode] = Gree.VALUE.mode.cool;
-  }
+  properties[Gree.PROPERTY.power] = Gree.VALUE.power.on;
+  properties[Gree.PROPERTY.lights] = Gree.VALUE.lights.on;
+  properties[Gree.PROPERTY.mode] = Gree.VALUE.mode.cool;
   // const temperature = nightTime ? NIGHTTIME_TEMPERATURE : DAYTIME_TEMPERATURE;
   // const fanSpeed = nightTime ? FanSpeed.MEDIUMLOW : FanSpeed.LOW;
-  const swingVert = nightTime
-    ? Gree.VALUE.swingVert.fixedBottom
-    : Gree.VALUE.swingVert.fixedMidTop;
+  // const swingVert = nightTime
+  //   ? Gree.VALUE.swingVert.fixedBottom
+  //   : Gree.VALUE.swingVert.fixedMidTop;
+  const swingVert = Gree.VALUE.swingVert.fixedBottom;
   properties[Gree.PROPERTY.swingVert] = swingVert;
   // properties[Gree.PROPERTY.temperature] = temperature;
   // properties[Gree.PROPERTY.fanSpeed] = fanSpeed;

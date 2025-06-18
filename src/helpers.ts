@@ -1,7 +1,7 @@
-const NIGHT_CHANGE_HOUR_WEEEKEND = 2;
+const NIGHT_CHANGE_HOUR_WEEEKEND = 3;
 const NIGHT_CHANGE_HOUR_WEEK = 1;
 const DAY_CHANGE_HOUR_WEEEKEND = 10;
-const DAY_CHANGE_HOUR_WEEK = 8;
+const DAY_CHANGE_HOUR_WEEK = 9;
 
 const isWeekend = (date: Date) => {
   const day = date.getDay();
