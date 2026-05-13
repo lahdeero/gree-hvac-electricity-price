@@ -11,7 +11,6 @@ client.on('connect', async () => {
 
 client.on('update', updatedProperties => {
   gree({client, updatedProperties});
-  client.disconnect();
 });
 
 client.on('success', updatedProperties => {
