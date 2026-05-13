@@ -14,7 +14,7 @@ const shutdownOrKeepOff = async (
   }
   console.info("change hour, shutdown or keep off");
   const properties = {
-    [Gree.PROPERTY.lights]: Gree.VALUE.lights.on,
+    [Gree.PROPERTY.lights]: Gree.VALUE.lights.off,
     [Gree.PROPERTY.power]: Gree.VALUE.power.off
   } satisfies Partial<GreeProperties>;
   console.info(properties);
@@ -40,7 +40,7 @@ const turnOrKeepOn = async (
   const nightTime = isNightTime(date);
   const properties = {
     [Gree.PROPERTY.power]: Gree.VALUE.power.on,
-    [Gree.PROPERTY.lights]: Gree.VALUE.lights.on,
+    [Gree.PROPERTY.lights]: Gree.VALUE.lights.off,
     [Gree.PROPERTY.mode]: Gree.VALUE.mode.cool,
     [Gree.PROPERTY.swingVert]: nightTime ? Gree.VALUE.swingVert.fixedBottom : Gree.VALUE.swingVert.fixedTop,
     [Gree.PROPERTY.blow]: Gree.VALUE.blow.on
