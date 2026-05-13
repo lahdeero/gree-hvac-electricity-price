@@ -1,7 +1,4 @@
-const NIGHT_CHANGE_HOUR_WEEEKEND = 3;
-const NIGHT_CHANGE_HOUR_WEEK = 1;
-const DAY_CHANGE_HOUR_WEEEKEND = 10;
-const DAY_CHANGE_HOUR_WEEK = 9;
+import { day_change_hour_week, day_change_hour_weekend, night_change_hour_week, night_change_hour_weekend } from "./settings.json";
 
 const isWeekend = (date: Date) => {
   const day = date.getDay();
@@ -11,17 +8,17 @@ const isWeekend = (date: Date) => {
 export const isNightTime = (date: Date): boolean => {
   const hour = date.getHours();
   if (isWeekend(date)) {
-    return hour >= 1 && hour < DAY_CHANGE_HOUR_WEEEKEND;
+    return hour >= 1 && hour < day_change_hour_weekend;
   }
-  return hour >= 0 && hour < DAY_CHANGE_HOUR_WEEK;
+  return hour >= 0 && hour < day_change_hour_week;
 };
 
 export const isChangeHour = (date: Date) => {
   const hour = date.getHours();
   if (isWeekend(date)) {
-    return [DAY_CHANGE_HOUR_WEEEKEND, NIGHT_CHANGE_HOUR_WEEEKEND].includes(
+    return [day_change_hour_weekend, night_change_hour_weekend].includes(
       hour
     );
   }
-  return [DAY_CHANGE_HOUR_WEEK, NIGHT_CHANGE_HOUR_WEEK].includes(hour);
+  return [day_change_hour_week, night_change_hour_week].includes(hour);
 };

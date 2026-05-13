@@ -32,8 +32,16 @@ export type GreeProperties = {
   safetyHeating: OnOff
 };
 
-export type MatchingPriceEntry = {
+export type PriceEntry = {
   price: number
   startDate: string
   endDate: string
+};
+
+export type GreeClient = {
+  on: (event: 'connect' | 'update' |'success' | 'error', callback: (data?: any) => void) => void;
+  disconnect: () => Promise<void>;
+  setProperty: (property: string, value: string | number) => Promise<void>;
+  setProperties: (properties: Partial<GreeProperties>) => Promise<void>;
+  getDeviceId: () => string;
 };

@@ -1,0 +1,8 @@
+{
+  "air_condition_ip": "192.168.1.111",
+  "price_threshold": 15,
+  "day_change_hour_week": 7,
+  "day_change_hour_weekend": 9,
+  "night_change_hour_week": 1,
+  "night_change_hour_weekend": 3
+}
