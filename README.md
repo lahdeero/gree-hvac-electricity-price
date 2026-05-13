@@ -1,24 +1,14 @@
-Properties
-https://github.com/inwaar/gree-hvac-client
+# Gree hvac electricity price
 
-```json
-{
-  power: 'off',
-  mode: 'cool',
-  temperatureUnit: 'celsius',
-  temperature: 19,
-  currentTemperature: 26,
-  fanSpeed: 'low',
-  air: 'off',
-  blow: 'off',
-  health: 'on',
-  sleep: 'off',
-  lights: 'on',
-  swingHor: 'default',
-  swingVert: 'default',
-  quiet: 'off',
-  turbo: 'off',
-  powerSave: 'off',
-  safetyHeating: 'off'
-}
-```
+Automation for gree hvac air condition unit
+
+## Install & run
+
+1. rename settings.example.json to settings.json
+2. `npm run build`
+3. `npm run start`
+
+## More information
+
+Based on
+https://github.com/inwaar/gree-hvac-client
