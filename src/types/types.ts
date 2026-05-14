@@ -45,3 +45,14 @@ export type GreeClient = {
   setProperties: (properties: Partial<GreeProperties>) => Promise<void>;
   getDeviceId: () => string;
 };
+
+export interface Settings {
+  air_condition_ip: string;
+  price_threshold: number;
+  day_change_hour_week: number;
+  day_change_hour_weekend: number;
+  night_change_hour_week: number;
+  night_change_hour_weekend: number;
+  day_temperature: number;
+  night_temperature: number;
+}

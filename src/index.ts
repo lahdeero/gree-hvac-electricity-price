@@ -1,8 +1,9 @@
 import * as Gree from "gree-hvac-client";
-import { air_condition_ip } from "./settings.json";
 import { GreeClient } from "./types/types";
 import { gree } from "./gree";
+import { getConfiguration } from "./configuration";
 
+const { air_condition_ip } = getConfiguration();
 const client: GreeClient = new Gree.Client({ host: air_condition_ip });
 
 client.on('connect', async () => {

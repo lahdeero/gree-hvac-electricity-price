@@ -2,7 +2,9 @@ import { GreeClient, GreeProperties } from "./types/types";
 import * as Gree from "gree-hvac-client";
 import { getLatestPrice } from "./prices";
 import { isChangeHour, isNightTime } from "./helpers";
-import settings from "./settings.json";
+import { getConfiguration } from "./configuration";
+
+const config = getConfiguration();
 
 const shutdownOrKeepOff = async (
   client: GreeClient,
@@ -44,7 +46,7 @@ const turnOrKeepOn = async (
     [Gree.PROPERTY.mode]: Gree.VALUE.mode.cool,
     [Gree.PROPERTY.swingVert]: nightTime ? Gree.VALUE.swingVert.fixedBottom : Gree.VALUE.swingVert.fixedTop,
     [Gree.PROPERTY.blow]: Gree.VALUE.blow.on,
-    [Gree.PROPERTY.temperature]: nightTime ? settings.night_temperature : settings.day_temperature,
+    [Gree.PROPERTY.temperature]: nightTime ? config.night_temperature : config.day_temperature,
     [Gree.PROPERTY.fanSpeed]: nightTime ? Gree.VALUE.fanSpeed.MEDIUMLOW : Gree.VALUE.fanSpeed.LOW,
   } satisfies Partial<GreeProperties>;
   console.info(properties);
@@ -57,10 +59,10 @@ export const gree = async ({client, updatedProperties}: { client: GreeClient; up
   console.info("date", date.toString());
   const latestPrice = await getLatestPrice(date);
   console.info("latestPrice", latestPrice);
-  if (latestPrice > settings.price_threshold) {
+  if (latestPrice > config.price_threshold) {
     console.info("shutdownOrKeepOff");
     await shutdownOrKeepOff(client, updatedProperties);
-  } else if (latestPrice <= settings.price_threshold) {
+  } else if (latestPrice <= config.price_threshold) {
     console.info("turnOrKeepOn");
     await turnOrKeepOn(client, updatedProperties, date);
   }
