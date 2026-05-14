@@ -45,6 +45,7 @@ const turnOrKeepOn = async (
     [Gree.PROPERTY.swingVert]: nightTime ? Gree.VALUE.swingVert.fixedBottom : Gree.VALUE.swingVert.fixedTop,
     [Gree.PROPERTY.blow]: Gree.VALUE.blow.on,
     [Gree.PROPERTY.temperature]: nightTime ? settings.night_temperature : settings.day_temperature,
+    [Gree.PROPERTY.fanSpeed]: nightTime ? Gree.VALUE.fanSpeed.MEDIUMLOW : Gree.VALUE.fanSpeed.LOW,
   } satisfies Partial<GreeProperties>;
   console.info(properties);
   await client.setProperties(properties);
