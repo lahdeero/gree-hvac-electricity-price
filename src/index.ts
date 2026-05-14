@@ -9,8 +9,8 @@ client.on('connect', async () => {
   console.info("connected to", client.getDeviceId());
 });
 
-client.on('update', updatedProperties => {
-  gree({client, updatedProperties});
+client.on('update', async (updatedProperties) => {
+  await gree({client, updatedProperties});
 });
 
 client.on('success', updatedProperties => {
