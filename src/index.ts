@@ -14,11 +14,11 @@ client.on('update', async (updatedProperties) => {
   await gree({client, updatedProperties});
 });
 
-client.on('success', updatedProperties => {
-  console.log('properties updated:', updatedProperties);
+client.on('success', (updatedProperties) => {
+  console.info('properties updated:', updatedProperties);
   client.disconnect();
 });
 
-client.on('error', error => {
+client.on('error', (error) => {
   console.error(error);
 });
