@@ -12,10 +12,6 @@ client.on('connect', async () => {
 
 client.on('update', async (updatedProperties) => {
   await gree({client, updatedProperties});
-});
-
-client.on('success', (updatedProperties) => {
-  console.info('properties updated:', updatedProperties);
   client.disconnect();
 });
 
