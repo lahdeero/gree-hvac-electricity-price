@@ -1,12 +1,11 @@
 {
   "name": "air_condition",
-  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/index.js",
-    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js",
+    "build": "esbuild src/index.ts --bundle --platform=node --format=cjs --outfile=dist/index.js",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
@@ -14,7 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.2",
-    "gree-hvac-client": "^2.0.0"
+    "gree-hvac-client": "^2.0.0",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.42",

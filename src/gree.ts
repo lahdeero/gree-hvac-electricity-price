@@ -1,25 +1,26 @@
-import { FanSpeed, GreeClient, GreeProperties } from "./types/types";
 import * as Gree from "gree-hvac-client";
+import { FanSpeed, GreeClient, GreeProperties } from "./types/types";
 import { getLatestPrice } from "./prices";
 import { isChangeHour, isNightTime } from "./helpers";
-import { getConfiguration } from "./configuration";
+import { getSettings } from "./configuration";
+import logger from "./logger";
 
-const config = getConfiguration();
+const settings = getSettings();
 
 const shutdownOrKeepOff = async (
   client: GreeClient,
   currentProperties: GreeProperties
 ): Promise<void> => {
   if (currentProperties.power === Gree.VALUE.power.off) {
-    console.info("not change hour, no shutdown needed");
+    logger.info("not change hour, no shutdown needed");
     return;
   }
-  console.info("change hour, shutdown or keep off");
+  logger.info("change hour, shutdown or keep off");
   const properties = {
     [Gree.PROPERTY.lights]: Gree.VALUE.lights.off,
     [Gree.PROPERTY.power]: Gree.VALUE.power.off
   } satisfies Partial<GreeProperties>;
-  console.info(properties);
+  logger.info(properties);
   await client.setProperties(properties);
 };
 
@@ -30,13 +31,13 @@ const turnOrKeepOn = async (
   date: Date
 ): Promise<void> => {
   if (!isChangeHour(date)) {
-    console.info("not change hour, no turn on needed");
+    logger.info("not change hour, no turn on needed");
     return;
   }
-  console.info("change hour, turn on or keep on");
+  logger.info("change hour, turn on or keep on");
   // If the air conditioner is already on, we don't need to do anything
   if (currentProperties.power === Gree.VALUE.power.on) {
-    console.info("air conditioner is already on, no action needed");
+    logger.info("air conditioner is already on, no action needed");
     return;
   }
   const nightTime = isNightTime(date);
@@ -46,23 +47,23 @@ const turnOrKeepOn = async (
     [Gree.PROPERTY.mode]: Gree.VALUE.mode.cool,
     [Gree.PROPERTY.swingVert]: nightTime ? Gree.VALUE.swingVert.fixedBottom : Gree.VALUE.swingVert.fixedTop,
     [Gree.PROPERTY.blow]: Gree.VALUE.blow.on,
-    [Gree.PROPERTY.temperature]: nightTime ? config.night_temperature : config.day_temperature,
+    [Gree.PROPERTY.temperature]: nightTime ? settings.night_temperature : settings.day_temperature,
     [Gree.PROPERTY.fanSpeed]: nightTime ? FanSpeed.MEDIUMLOW :FanSpeed.LOW,
   } satisfies Partial<GreeProperties>;
-  console.info(properties);
+  logger.info(properties);
   await client.setProperties(properties);
 };
 
 export const gree = async ({client, updatedProperties}: { client: GreeClient; updatedProperties: GreeProperties }) => {
   const date = new Date();
-  console.info("date", date.toString());
+  logger.info("date", date.toString());
   const latestPrice = await getLatestPrice(date);
-  console.info("latestPrice", latestPrice);
-  if (latestPrice > config.price_threshold) {
-    console.info("shutdownOrKeepOff");
+  logger.info("latestPrice", latestPrice);
+  if (latestPrice > settings.price_threshold) {
+    logger.info("shutdownOrKeepOff");
     await shutdownOrKeepOff(client, updatedProperties);
-  } else if (latestPrice <= config.price_threshold) {
-    console.info("turnOrKeepOn");
+  } else if (latestPrice <= settings.price_threshold) {
+    logger.info("turnOrKeepOn");
     await turnOrKeepOn(client, updatedProperties, date);
   }
 };

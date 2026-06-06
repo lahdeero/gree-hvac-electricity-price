@@ -1,6 +1,6 @@
-import { getConfiguration } from "./configuration";
+import { getSettings } from "./configuration";
 
-const config = getConfiguration();
+const config = getSettings();
 
 const isWeekend = (date: Date) => {
   const day = date.getDay();
