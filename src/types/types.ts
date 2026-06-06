@@ -49,10 +49,10 @@ export type GreeClient = {
 export interface Settings {
   air_condition_ip: string;
   price_threshold: number;
-  day_change_hour_week: number;
-  day_change_hour_weekend: number;
-  night_change_hour_week: number;
-  night_change_hour_weekend: number;
   day_temperature: number;
   night_temperature: number;
+  weekday_change_hours: number[];
+  weekend_change_hours: number[];
+  night_time_starts_at: number;
+  day_time_starts_at: number;
 }

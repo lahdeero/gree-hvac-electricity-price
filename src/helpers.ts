@@ -9,18 +9,15 @@ const isWeekend = (date: Date) => {
 
 export const isNightTime = (date: Date): boolean => {
   const hour = date.getHours();
-  if (isWeekend(date)) {
-    return hour >= 1 && hour < config.day_change_hour_weekend;
-  }
-  return hour >= 0 && hour < config.day_change_hour_week;
+  return hour >= config.night_time_starts_at || hour < config.day_time_starts_at;
 };
 
 export const isChangeHour = (date: Date) => {
   const hour = date.getHours();
   if (isWeekend(date)) {
-    return [config.day_change_hour_weekend, config.night_change_hour_weekend].includes(
+    return config.weekend_change_hours.includes(
       hour
     );
   }
-  return [config.day_change_hour_week, config.night_change_hour_week].includes(hour);
+  return config.weekday_change_hours.includes(hour);
 };
