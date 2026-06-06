@@ -1,4 +1,4 @@
-import { getSettings } from "./configuration";
+import { getSettings } from "./settings";
 
 const config = getSettings();
 

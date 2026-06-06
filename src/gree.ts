@@ -2,7 +2,7 @@ import * as Gree from "gree-hvac-client";
 import { FanSpeed, GreeClient, GreeProperties } from "./types/types";
 import { getLatestPrice } from "./prices";
 import { isChangeHour, isNightTime } from "./helpers";
-import { getSettings } from "./configuration";
+import { getSettings } from "./settings";
 import logger from "./logger";
 
 const settings = getSettings();

@@ -1,7 +1,7 @@
 import * as Gree from "gree-hvac-client";
 import { GreeClient } from "./types/types";
 import { gree } from "./gree";
-import { getSettings } from "./configuration";
+import { getSettings } from "./settings";
 import logger from "./logger";
 
 const { air_condition_ip } = getSettings();

@@ -2,8 +2,8 @@ import { describe, test, expect, vi } from "vitest";
 import { isNightTime, isChangeHour } from "./helpers";
 import { Settings } from "./types/types";
 
-vi.mock("./configuration", () => ({
-  getConfiguration: () => ({
+vi.mock("./settings", () => ({
+  getSettings: () => ({
     night_time_starts_at: 22,
     day_time_starts_at: 6,
     weekend_change_hours: [0, 1],
