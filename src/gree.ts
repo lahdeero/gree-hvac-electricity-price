@@ -54,7 +54,6 @@ const turnOrKeepOn = async (
 };
 
 export const gree = async ({client, updatedProperties}: { client: GreeClient; updatedProperties: GreeProperties }) => {
-  console.info("update");
   const date = new Date();
   console.info("date", date.toString());
   const latestPrice = await getLatestPrice(date);

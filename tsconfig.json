@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "es5",
+    "target": "ES2016",
+    "types": ["node"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "rootDir": "src",
     "outDir": "dist",
-    "lib": [
-      "dom",
-      "es2015"
-    ],
+    "lib": ["ES2016"],
     "typeRoots": [
       "./node_modules/@types",
       "src/types"
