@@ -8,3 +8,7 @@
 {"level":"info","message":"latestPrice"}
 {"level":"info","message":"turnOrKeepOn"}
 {"level":"info","message":"not change hour, no turn on needed"}
+2026-06-20T08:13:30.175Z [INFO]: connected to
+2026-06-20T08:13:30.440Z [INFO]: latestPrice: 0
+2026-06-20T08:13:30.440Z [INFO]: turnOrKeepOn
+2026-06-20T08:13:30.440Z [INFO]: not change hour, no turn on needed

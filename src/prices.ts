@@ -1,20 +1,23 @@
-import axios from 'axios';
-import { PriceEntry } from './types/types';
+import axios from "axios";
+import { PriceEntry } from "./types/types";
+import { isNumber } from "./helpers";
 
-const LATEST_PRICES_ENDPOINT = 'https://api.porssisahko.net/v1/latest-prices.json';
+const LATEST_PRICES_ENDPOINT =
+  "https://api.porssisahko.net/v1/latest-prices.json";
 const PRICE_NOT_AVAILABLE_PRICE = Number.MAX_SAFE_INTEGER;
 
-const fetchLatestPriceData  = async () => {
+const fetchLatestPriceData = async () => {
   const response = await axios.get(LATEST_PRICES_ENDPOINT);
   return response.data;
 };
 
 const getPriceForDate = (date: Date, prices: PriceEntry[]): number => {
   const matchingPriceEntry: PriceEntry | undefined = prices.find(
-    (price) => new Date(price.startDate) <= date && new Date(price.endDate) > date
+    (price) =>
+      new Date(price.startDate) <= date && new Date(price.endDate) > date,
   );
   const ret = Number(matchingPriceEntry?.price);
-  if (!ret || isNaN(ret) || !isFinite(ret)) {
+  if (!isNumber(ret)) {
     return PRICE_NOT_AVAILABLE_PRICE;
   }
   return ret;
